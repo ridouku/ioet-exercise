@@ -10,17 +10,17 @@ export class PaymentService implements IPaymentService {
 
   public calculateEmployeePayment(path: string): object {
     const data: string = fs.readFileSync(path, "utf8");
+    const employeesPayments: object = {};
+
     if (data.length === 0) {
       throw new Error("Empty file");
     }
 
-    const employeesPayments: object = {};
     try {
       data.split("\n").forEach((line: string, index: number) => {
         const employeeInfo: string[] = line.split("=");
         const employeeName: string = employeeInfo[0];
-        const payment = this._processSchedulesLine(employeeInfo[1]);
-        employeesPayments[employeeName] = payment;
+        employeesPayments[employeeName] = this._processSchedulesLine(employeeInfo[1]);
       });
       return employeesPayments;
     } catch {
@@ -33,9 +33,9 @@ export class PaymentService implements IPaymentService {
     scheduleInfo.split(",").forEach((line: string, index: number) => {
       const scheduleDay: IScheduleInfo = this._getScheduleDay(line);
       const rule: IRulePayment[] = PAYMENT_DAY_RULE[scheduleDay.day];
-      const times = scheduleDay.schedule.split("-");
-      const startDate = times[0];
-      const endDate = times[1];
+      const times: string[] = scheduleDay.schedule.split("-");
+      const startDate: string = times[0];
+      const endDate: string = times[1];
       const fees: IScheduleFee[] = this._getFee(startDate, endDate, rule);
       fees.forEach((fee: IScheduleFee) => {
         payment = payment + fee.fee * fee.interval;
@@ -66,8 +66,8 @@ export class PaymentService implements IPaymentService {
     const startTime: string[] = start.split(":");
     const endTime: string[] = end.split(":");
 
-    const startDate = new Date(0, 0, 0, parseInt(startTime[0]), 0, 0);
-    const endDate = new Date(
+    const startDate: Date = new Date(0, 0, 0, parseInt(startTime[0]), 0, 0);
+    const endDate: Date = new Date(
       0,
       0,
       0,
@@ -75,8 +75,8 @@ export class PaymentService implements IPaymentService {
       parseInt(endTime[1]),
       0
     );
-    let diff = endDate.getTime() - startDate.getTime();
-    let hours = Math.floor(diff / 1000 / 60 / 60);
+    let diff: number = endDate.getTime() - startDate.getTime();
+    let hours: number = Math.floor(diff / 1000 / 60 / 60);
     diff -= hours * 1000 * 60 * 60;
     if (hours < 0) hours = hours + 24;
 
