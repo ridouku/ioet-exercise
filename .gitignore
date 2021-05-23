@@ -1,0 +1,36 @@
+# Jetbrains
+/.idea
+# package directories
+node_modules
+
+# OSX Files
+.DS_Store
+
+# Temp files
+.envrc
+*.js
+!src/handler/completeValidateToken.js
+!webpack.config.js
+!.serverless_plugins/**/*.js
+.env
+.env.yml
+/types
+tmp
+npm-debug.log
+/coverage
+/.nyc_output
+/.env.yml
+/.idea/inspectionProfiles/profiles_settings.xml
+env.yml
+yarn-error.log
+yarn.lock
+*.js.map
+.coverage/
+.cache-loader
+__MACOSX
+/my-artifacts
+radar.conf
+.jscpd/
+!ServerlessScripts.js
+/.vscode
+

@@ -1,0 +1,7 @@
+{
+  "extends": ["tslint-config-prettier"],
+  "exclude": ["**/dist/**", "**/node_modules/**"],
+  "rules": {
+    "no-any": false
+  }
+}
